@@ -1,31 +1,40 @@
 <template>
   <main>
-    <div class="media-player__wrapper">
-      <MediaPlayer
-        :title="mediaplayer.title"
-        :image="mediaplayer.image"
-        :subtitle="mediaplayer.subtitle"
-        :ingress="mediaplayer.ingress"
-        :link="mediaplayer.link"
-        :mediaHeader="mediaplayer.mediaHeader"
-        :audio="mediaplayer.audio"
-        :linksHeader="mediaplayer.linksHeader"
-        :links="mediaplayer.links"
-        :icons="mediaplayer.icons"
+    <div class="parallax__wrapper">
+      <Parallax
+        :images="parallaxImages"
       />
     </div>
   </main>
 </template>
 
 <script>
-import MediaPlayer from "./components/media-player/MediaPlayer.vue";
+import Parallax from "./components/parallax/Parallax.vue";
 
 export default {
   name: "App",
   components: {
-    MediaPlayer
+    Parallax
   },
   data: () => ({
+    parallaxImages: [
+      {
+        src: require("@/assets/images/parallax/image1.png"),
+        alt: "nice image"
+      },
+      {
+        src: require("@/assets/images/parallax/image2.png"),
+        alt: "nice image"
+      },
+      {
+        src: require("@/assets/images/parallax/image3.png"),
+        alt: "nice image"
+      },
+      {
+        src: require("@/assets/images/parallax/image4.png"),
+        alt: "nice image"
+      }
+    ],
     mediaplayer: {
       title: "Episode 1",
       image: "https://thumborcdn.acast.com/qvuqJgOCsWGpyd1FNBslwMbSpQQ=/500x500/https%3A%2F%2Fmediacdn.acast.com%2Fassets%2F875f5680-6bf6-46ad-8689-44aeb78b4b86%2F-jz2ldxt6-pod_f5_3.jpeg",
