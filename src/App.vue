@@ -1,29 +1,19 @@
 <template>
   <main>
     <div class="media-player__wrapper">
-      <MediaPlayer
-        :title="mediaplayer.title"
-        :image="mediaplayer.image"
-        :subtitle="mediaplayer.subtitle"
-        :ingress="mediaplayer.ingress"
-        :link="mediaplayer.link"
-        :mediaHeader="mediaplayer.mediaHeader"
-        :audio="mediaplayer.audio"
-        :linksHeader="mediaplayer.linksHeader"
-        :links="mediaplayer.links"
-        :icons="mediaplayer.icons"
+      <MapHeader
       />
     </div>
   </main>
 </template>
 
 <script>
-import MediaPlayer from "./components/media-player/MediaPlayer.vue";
+import MapHeader from "./components/map-header/MapHeader.vue";
 
 export default {
   name: "App",
   components: {
-    MediaPlayer
+    MapHeader
   },
   data: () => ({
     mediaplayer: {

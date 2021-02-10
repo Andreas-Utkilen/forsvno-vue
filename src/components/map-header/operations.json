@@ -1,0 +1,41 @@
+[{
+    "country": "Angola",
+    "region": "Africa",
+    "lat": -8.838333,
+    "lon": 13.234444,
+    "yearFrom": 1989,
+    "yearTo": 1991,
+    "operationText": "UN Angola Verification Mission (UNAVEM III)",
+    "operationLink": "https://google.com/"
+  },
+  {
+    "country": "Kosovo",
+    "region": "Europe",
+    "lat": 42.667542,
+    "lon": 21.166191,
+    "yearFrom": 1998,
+    "yearTo": 1999,
+    "operationText": "Kosovo Verification Mission (KVM)",
+    "operationLink": "https://google.com/"
+  },
+  {
+    "country": "Tyskland",
+    "region": "Europe",
+    "lat": 52.520008,
+    "lon": 13.404954,
+    "yearFrom": 1947,
+    "yearTo": 1953,
+    "operationText": "Tysklandsbrigaden",
+    "operationLink": "https://google.com/"
+  },
+  {
+    "country": "Kosovo",
+    "region": "Europe",
+    "lat": 43.667542,
+    "lon": 21.166191,
+    "yearFrom": 1999,
+    "yearTo": 2021,
+    "operationText": "Kosovo Force (KFOR)",
+    "operationLink": "https://google.com/"
+  }
+]
