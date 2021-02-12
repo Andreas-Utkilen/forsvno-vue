@@ -27,25 +27,25 @@ export default {
     stepper: {
       steps: [
         {
-          "text": "Start",
-          "active": false,
-          "link": {
-            "id": "cb962fe3-fae5-4693-b8fe-ee9300b7ad62"
+          text: "Start",
+          active: false,
+          link: {
+            id: "cb962fe3-fae5-4693-b8fe-ee9300b7ad62"
           }
         },
         {
-          "text": "Planning",
-          "active": true
+          text: "Planning",
+          active: true
         },
         {
-          "text": "Production",
-          "active": false
+          text: "Production",
+          active: false
         },
         {
-          "text": "Finish",
-          "active": false,
-          "link": {
-            "id": "ad1b7d34-565a-45b9-8578-0d1f0ac99ee6"
+          text: "Finish",
+          active: false,
+          link: {
+            id: "ad1b7d34-565a-45b9-8578-0d1f0ac99ee6"
           }
         }
       ],
