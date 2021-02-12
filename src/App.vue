@@ -4,18 +4,53 @@
       <MapHeader
       />
     </div>
+    <div class="stepper__wrapper">
+      <Stepper
+      :steps="stepper.steps"
+      :arrowRight="stepper.icon"
+      />
+    </div>
   </main>
 </template>
 
 <script>
 import MapHeader from "./components/map-header/MapHeader.vue";
+import Stepper from "./components/stepper/Stepper.vue";
 
 export default {
   name: "App",
   components: {
-    MapHeader
+    MapHeader,
+    Stepper
   },
   data: () => ({
+    stepper: {
+      steps: [
+        {
+          "text": "Start",
+          "active": false,
+          "link": {
+            "id": "cb962fe3-fae5-4693-b8fe-ee9300b7ad62"
+          }
+        },
+        {
+          "text": "Planning",
+          "active": true
+        },
+        {
+          "text": "Production",
+          "active": false
+        },
+        {
+          "text": "Finish",
+          "active": false,
+          "link": {
+            "id": "ad1b7d34-565a-45b9-8578-0d1f0ac99ee6"
+          }
+        }
+      ],
+      icon: require("@/assets/images/spotify.svg")
+    },
     mediaplayer: {
       title: "Episode 1",
       image: "https://thumborcdn.acast.com/qvuqJgOCsWGpyd1FNBslwMbSpQQ=/500x500/https%3A%2F%2Fmediacdn.acast.com%2Fassets%2F875f5680-6bf6-46ad-8689-44aeb78b4b86%2F-jz2ldxt6-pod_f5_3.jpeg",

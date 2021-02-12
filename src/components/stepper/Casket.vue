@@ -135,23 +135,23 @@ export default {
         }
 
         this.$refs.content.style.transform = `translate3d(calc(50% - 112.5px - ${currentStep * this.minLength}px), 0px, 0px)`;
-        this.$refs.content.animate([
+        /* this.$refs.content.animate([
           {
             transform: `translate3d(calc(50% - 112.5px - ${newStep * this.minLength}px), 0px, 0px)`
           }
         ], {
           duration: duration,
           easing: "ease-out"
-        });
+        }); */
         this.$refs.progress.style.width = `${((currentStep + 1) / this.numSteps) * 100}%`;
-        this.$refs.progress.animate([
+        /* this.$refs.progress.animate([
           {
             width: `${((newStep + 1) / this.numSteps) * 100}%`
           }
         ], {
           duration: duration,
           easing: "ease-out"
-        });
+        }); */
         setTimeout(() => {
           this.$refs.content.style.transform = `translate3d(calc(50% - 112.5px - ${newStep * this.minLength}px), 0px, 0px)`;
           this.currentStep = newStep;

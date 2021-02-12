@@ -2,22 +2,27 @@
     <div
       class="map-header__wrapper article__top"
     >
+      <div
+        class="page-top__wrapper hug-top bg beige-light"
+      >
         <div
-          class="page-top__wrapper hug-top bg beige-light"
+          :class="['map-header__page-top', fullscreen ? 'map-header__fullscreen' : '']"
         >
-          <div>
-            <div id="mapContainer"></div>
-              <h1>
-                {{ header }}
-              </h1>
-          </div>
+          <div id="mapContainer"></div>
+          <HeaderText
+            v-show="!fullscreen"
+            :enterFullScreen="enterFullScreen"
+          />
         </div>
+      </div>
     </div>
 </template>
 
 <script>
 import "leaflet/dist/leaflet.css";
 import * as L from "leaflet";
+import HeaderText from "./HeaderText.vue";
+import getJsonFromUrl from "./utils";
 import data from "./operations.json";
 
 delete L.Icon.Default.prototype._getIconUrl;
@@ -30,8 +35,15 @@ L.Icon.Default.mergeOptions({
 
 export default {
   name: "MapHeader",
+  components: {
+    HeaderText
+  },
   data: () => ({
-    center: [60, 5]
+    data: [],
+    center: [60, 5],
+    zoom: 3,
+    map: null,
+    fullscreen: false
   }),
   props: {
     /**
@@ -65,61 +77,111 @@ export default {
   },
   created() {
     console.log("created");
+    this.data = data;
   },
   mounted() {
+    const params = getJsonFromUrl(window.location.href);
+    let regions = params.region;
+    const lat = params.lat;
+    const lng = params.lng;
+    console.log(regions);
+    if (regions) {
+      regions = regions.split(",");
+      this.data = this.data.filter((country) => regions.includes(country.region));
+      this.zoom = 4;
+    }
+    if (lat && lng) {
+      this.center = [lat, lng];
+    } else {
+      const center = this.getLatLngCenter();
+      this.center = center;
+    }
     this.setupLeafletMap();
-    console.log(window.location.search);
   },
   methods: {
     setupLeafletMap: function () {
-      const mapDiv = L.map("mapContainer", {
+      this.map = L.map("mapContainer", {
         attributionControl: false,
         zoomControl: false,
         minZoom: 4,
         maxZoom: 6
-      }).setView(this.center, 3);
+      }).setView(this.center, this.zoom);
       L.tileLayer(
         "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
         {
           attribution: false
         }
-      ).addTo(mapDiv);
+      ).addTo(this.map);
       const marker = L.icon({
         iconUrl: require("@/assets/images/marker.png"),
         iconSize: [25, 39], // size of the icon
         iconAnchor: [12, 39] // point of the icon which will correspond to marker's location
       });
-      data.forEach((mark) => {
-
-        L.marker([mark.lat, mark.lon], { icon: marker }).bindPopup(`
+      this.data.forEach((mark) => {
+        L.marker([mark.lat, mark.lng], { icon: marker }).bindPopup(`
           <img class="map-header__marker" src="${require("@/assets/images/marker.png")}"/>
           <div class="map-header__marker-info">
             <h2>${mark.country}</h2>
             <div class="map-header__info">
               <img src="${require("@/assets/images/angola.png")}" class="map-header__info-img"/>
               <div class="map-header__info-text">
-                <p>${mark.yearFrom === mark.yearTo ? mark.yearFrom : mark.yearFrom + "-" + mark.yearTo}</p>
+                <p>${mark.yearFrom}-${mark.yearTo}</p>
                 <a href="${mark.operationLink}" class="">${mark.operationText}</a>
               </div>
             </div>
             <a href="#" class="map-header__action">Se alle operasjoner i ${mark.country}</a>
           </div>
-        `).addTo(mapDiv);
+        `).addTo(this.map).on("click", this.centerMap);
       });
     },
-    onClick: function (e) {
-      e.target.setIcon(fullMarker);
-    }
-  },
-  computed: {
-    comp: function () {
-      return null;
-    }
+    centerMap: function (e) {
+      this.center = [e.latlng.lat, e.latlng.lng];
+      this.map.panTo(this.center);
+    },
+    enterFullScreen: function () {
+      this.fullscreen = true;
+    },
+    getLatLngCenter: function () {
+      let sumX = 0;
+      let sumY = 0;
+      let sumZ = 0;
+
+      this.data.forEach((mark) => {
+        const lat = this.degr2rad(mark.lat);
+        const lng = this.degr2rad(mark.lng);
+        // sum of cartesian coordinates
+        sumX += Math.cos(lat) * Math.cos(lng);
+        sumY += Math.cos(lat) * Math.sin(lng);
+        sumZ += Math.sin(lat);
+      });
+
+      const avgX = sumX / this.data.length;
+      const avgY = sumY / this.data.length;
+      const avgZ = sumZ / this.data.length;
+
+      // convert average x, y, z coordinate to latitude and lnggtitude
+      const lng = Math.atan2(avgY, avgX);
+      const hyp = Math.sqrt((avgX * avgX) + (avgY * avgY));
+      const lat = Math.atan2(avgZ, hyp);
+
+      return [this.rad2degr(lat), this.rad2degr(lng)];
+    },
+    rad2degr: function (rad) { return (rad * 180) / Math.PI; },
+    degr2rad: function (degr) { return (degr * Math.PI) / 180; }
   }
 };
 </script>
 <style lang="scss">
 .map-header__wrapper{
+  .map-header__page-top{
+    position: relative;
+    height: 70vh;
+    width: 100%;
+  }
+  .map-header__fullscreen{
+    position: fixed;
+    height: 100vh;
+  }
   a {
     color: #191B21;
     font-weight: 500;
@@ -129,38 +191,36 @@ export default {
   }
   #mapContainer {
     width: 100%;
-    height: 70vh;
+    height: 100%;
   }
   .map-header__marker{
     position: relative;
     z-index: 2;
     transform: translate(-6px, -33px);
   }
-  .leaflet-popup{
-    bottom: unset !important;
-    left: 0px !important;
-    .leaflet-popup-content-wrapper {
-      width: unset !important;
-      background: transparent;
-      border-radius: 0;
-      box-shadow: none;
-      transform: translate(-7px, -7px);
-      .leaflet-popup-content {
-        margin: 0;
+  .leaflet-container {
+    z-index: 0;
+    .leaflet-popup{
+      bottom: unset !important;
+      left: 0px !important;
+      .leaflet-popup-content-wrapper {
+        width: unset !important;
+        background: transparent;
+        border-radius: 0;
+        box-shadow: none;
+        transform: translate(-7px, -7px);
+        .leaflet-popup-content {
+          margin: 0;
+        }
+      }
+      .leaflet-popup-tip-container {
+        display: none;
+      }
+      a.leaflet-popup-close-button {
+        display: none;
       }
     }
-    .leaflet-popup-tip-container {
-      display: none;
-    }
-    a.leaflet-popup-close-button {
-      display: none;
-    }
   }
-  
-
-  
-
-  
   .map-header__marker-info{
     position: relative;
     background: white;
@@ -202,11 +262,12 @@ export default {
       margin-top: .5rem;
     }
   }
-  
 }
 /* Quickfix? */
 .leaflet-tile-container img {
     width: 256.5px !important;
     height: 256.5px !important;
+    -webkit-filter: brightness(55%) i !important;
+    filter: brightness(55%) !important;
 }
 </style>

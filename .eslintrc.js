@@ -36,6 +36,7 @@ module.exports = {
       "error",
       "always"
     ],
+    "eol-last": 0,
     "no-multi-assign": "off",
     "no-console": "off",
     "global-require": "off",
