@@ -34,7 +34,8 @@
     "vue-ts-loader": "^0.0.3",
     "vue2-touch-events": "^3.0.0",
     "vuetify": "^2.2.11",
-    "vuex": "^3.4.0"
+    "vuex": "^3.4.0",
+    "webpack-bundle-analyzer": "^4.4.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.33.0",

@@ -2,6 +2,8 @@
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 
 module.exports = {
   mode: "production",
@@ -22,6 +24,7 @@ module.exports = {
       filename: "style.css",
       chunkFilename: "styleChunk.css"
     })
+    // new BundleAnalyzerPlugin()
   ],
   module: {
     rules: [{

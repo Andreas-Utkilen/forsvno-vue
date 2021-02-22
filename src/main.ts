@@ -8,6 +8,7 @@ import "./assets/style/stepper.css";
 import "./assets/style/story.css";
 import "./assets/style/promocard-horizontal.css";
 import "./assets/style/media-player.css";
+import "./assets/style/map-header.css";
 import "@babel/polyfill";
 
 Vue.config.productionTip = false;

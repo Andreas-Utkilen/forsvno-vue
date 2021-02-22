@@ -2,12 +2,11 @@
   <main>
     <div class="media-player__wrapper">
       <MapHeader
-      />
-    </div>
-    <div class="stepper__wrapper">
-      <Stepper
-      :steps="stepper.steps"
-      :arrowRight="stepper.icon"
+        :header="mapheader.header"
+        :subheader="mapheader.subheader"
+        :buttonText="mapheader.buttonText"
+        :data="mapheader.data"
+        :icons="mapheader.icons"
       />
     </div>
   </main>
@@ -15,15 +14,26 @@
 
 <script>
 import MapHeader from "./components/map-header/MapHeader.vue";
-import Stepper from "./components/stepper/Stepper.vue";
+import data from "./components/map-header/operations.json";
 
 export default {
   name: "App",
   components: {
-    MapHeader,
-    Stepper
+    MapHeader
   },
   data: () => ({
+    mapheader: {
+      header: "Operasjoner",
+      subheader: "Siden 1947 har Norge bidratt i 100 internasjonale operasjoner",
+      buttonText: "Se hvor vi opererer",
+      data: data,
+      icons: {
+        arrowRight: require("@/assets/images/arrow-right-white.svg"),
+        markerRetina: require("@/assets/images/marker.png"),
+        marker: require("@/assets/images/marker.png"),
+        shadow: require("leaflet/dist/images/marker-shadow.png")
+      }
+    },
     stepper: {
       steps: [
         {
