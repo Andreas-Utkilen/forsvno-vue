@@ -30,6 +30,7 @@
           <button
             v-show="!playing"
             v-on:click="play()"
+            :style="{ marginRight: isiPhone === null ? '0' : '1rem' }"
             class="media-player__player-btn"
           >
             <img
@@ -40,6 +41,7 @@
           <button
             v-show="playing"
             v-on:click="pause()"
+            :style="{ marginRight: isiPhone === null ? '0' : '1rem' }"
             class="media-player__player-btn"
           >
             <img
@@ -48,10 +50,13 @@
             >
           </button>
 
-          <div class="media-player__volume-controls">
+          <div
+            v-show="isiPhone === null"
+            class="media-player__volume-controls"
+          >
             <button
-              class="media-player__player-volume media-player__player-btn"
               @click="mute"
+              class="media-player__player-volume media-player__player-btn"
             >
               <img
                 :src="volumeIcon || icons.volume100"
@@ -185,7 +190,8 @@ export default {
       time: 0
     },
     mousedown: false,
-    rewindTime: null
+    rewindTime: null,
+    isiPhone: window.navigator.userAgent.match(/iPad/i) || window.navigator.userAgent.match(/iPhone/i)
   }),
   watch: {
     /*
@@ -260,7 +266,7 @@ export default {
         }
         this.rewindTime = null;
       } else if ((event.type === "mousemove" || event.type === "touchmove") && this.mousedown) {
-        this.rewindTime = this.playerState.duration * (event.offsetX / event.target.width);
+        this.rewindTime = this.playerState.duration * ((event.offsetX * window.devicePixelRatio) / event.target.width);
         this.currentTime = this.secondsToHms(this.rewindTime);
         this.wave.draw(this.rewindTime);
       }
