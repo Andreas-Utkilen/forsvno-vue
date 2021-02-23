@@ -200,7 +200,6 @@
 .media-player__links {
   display: flex;
   justify-content: stretch;
-  height: calc(100% - 3.375rem);
   flex-direction: column;
 }
 
