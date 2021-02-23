@@ -21,10 +21,8 @@ class Wave {
     this.duration = 1;
     this.data = data;
     this.time = 0;
-    this.animationDirection = 1;
 
     this.draw();
-    this.animationInterval = setInterval(this.animation.bind(this), 30);
   }
 
   /*
@@ -58,39 +56,6 @@ class Wave {
       }
       // determines whether bar should be black or white
       const black = x + (i * (width / 2)) < ((this.currentTime / this.duration) * this.canvas.offsetWidth);
-      // draw bar
-      this.drawLineSegment(x + (i * (width / 2)), height, width, black);
-    }
-    // All design elements around the bars
-    this.drawDesign(this.canvas.offsetWidth, this.canvas.offsetHeight);
-  }
-
-  /*
-   * Draws all elements and paints them
-   * according to animation.
-   */
-  animation() {
-    this.time += this.animationDirection;
-    if (this.time >= this.data.length - 1) {
-      this.animationDirection = -1;
-    } else if (this.time <= 0) {
-      this.animationDirection = 1;
-    }
-    // clear
-    this.ctx.clearRect(0, -this.canvas.height, this.canvas.width, this.canvas.height * 2);
-    // usable width
-    const width = this.canvas.offsetWidth / (this.data.length * 1.5);
-
-    for (let i = 0; i < this.data.length; i++) {
-      const x = width * i;
-      let height = Math.sin(i) * this.canvas.offsetHeight;
-      console.log(height);
-      // Clips height of bars
-      if (height > this.canvas.offsetHeight * 0.75) {
-        height = this.canvas.offsetHeight * 0.75;
-      }
-      // determines whether bar should be black or white
-      const black = (this.time === i || this.time === i - 1 || this.time === i + 1);
       // draw bar
       this.drawLineSegment(x + (i * (width / 2)), height, width, black);
     }
