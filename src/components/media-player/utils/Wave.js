@@ -20,7 +20,6 @@ class Wave {
     this.currentTime = 0;
     this.duration = 1;
     this.data = data;
-    this.time = 0;
 
     this.draw();
   }
