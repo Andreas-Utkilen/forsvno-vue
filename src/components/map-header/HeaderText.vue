@@ -53,19 +53,12 @@ export default {
      */
     enterFullScreen: {
       type: Function
-    },
-    /**
-     * Localization
-     *
-     * @values {
-     *   key: string,
-     * }
-     */
-    localize: {
-      type: Object
     }
   },
   methods: {
+    /*
+     * Enter fullscreen. Fades out text.
+     */
     _enterFullScreen: function () {
       this.enterFullScreen();
       try {
@@ -84,6 +77,9 @@ export default {
         this.$refs.wrapper.style.zIndex = -1;
       }
     },
+    /*
+     * Exit fullscreen. Fades in text.
+     */
     _exitFullScreen: function () {
       try {
         this.$refs.wrapper.animate([
