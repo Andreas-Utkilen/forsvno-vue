@@ -180,7 +180,6 @@ export default {
         attributionControl: false,
         zoomControl: false,
         minZoom: 3,
-        maxZoom: 6,
         scrollWheelZoom: !this.isTouchDevice(),
         maxBoundsViscosity: 1.0,
         maxBounds: bounds
