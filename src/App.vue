@@ -1,31 +1,66 @@
 <template>
   <main>
     <div class="media-player__wrapper">
-      <MediaPlayer
-        :title="mediaplayer.title"
-        :image="mediaplayer.image"
-        :subtitle="mediaplayer.subtitle"
-        :ingress="mediaplayer.ingress"
-        :link="mediaplayer.link"
-        :mediaHeader="mediaplayer.mediaHeader"
-        :audio="mediaplayer.audio"
-        :linksHeader="mediaplayer.linksHeader"
-        :links="mediaplayer.links"
-        :icons="mediaplayer.icons"
+      <MapHeader
+        :header="mapheader.header"
+        :subheader="mapheader.subheader"
+        :buttonText="mapheader.buttonText"
+        :data="mapheader.data"
+        :icons="mapheader.icons"
       />
     </div>
   </main>
 </template>
 
 <script>
-import MediaPlayer from "./components/media-player/MediaPlayer.vue";
+import MapHeader from "./components/map-header/MapHeader.vue";
+import data from "./components/map-header/operations.json";
 
 export default {
   name: "App",
   components: {
-    MediaPlayer
+    MapHeader
   },
   data: () => ({
+    mapheader: {
+      header: "Operasjoner",
+      subheader: "Siden 1947 har Norge bidratt i 100 internasjonale operasjoner",
+      buttonText: "Se hvor vi opererer",
+      data: data,
+      icons: {
+        arrowRight: require("@/assets/images/arrow-right-white.svg"),
+        markerRetina: require("@/assets/images/marker.png"),
+        marker: require("@/assets/images/marker.png"),
+        shadow: require("leaflet/dist/images/marker-shadow.png")
+      }
+    },
+    stepper: {
+      steps: [
+        {
+          text: "Start",
+          active: false,
+          link: {
+            id: "cb962fe3-fae5-4693-b8fe-ee9300b7ad62"
+          }
+        },
+        {
+          text: "Planning",
+          active: true
+        },
+        {
+          text: "Production",
+          active: false
+        },
+        {
+          text: "Finish",
+          active: false,
+          link: {
+            id: "ad1b7d34-565a-45b9-8578-0d1f0ac99ee6"
+          }
+        }
+      ],
+      icon: require("@/assets/images/spotify.svg")
+    },
     mediaplayer: {
       title: "Episode 1",
       image: "https://thumborcdn.acast.com/qvuqJgOCsWGpyd1FNBslwMbSpQQ=/500x500/https%3A%2F%2Fmediacdn.acast.com%2Fassets%2F875f5680-6bf6-46ad-8689-44aeb78b4b86%2F-jz2ldxt6-pod_f5_3.jpeg",

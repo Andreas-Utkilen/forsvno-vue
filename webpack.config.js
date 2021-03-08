@@ -2,6 +2,8 @@
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 
 module.exports = {
   mode: "production",
@@ -10,7 +12,8 @@ module.exports = {
     diagramVue: "./src/diagram.es6",
     // storyVue: "./src/story.es6",
     promocardHorizontalVue: "./src/promocard-horizontal.es6",
-    mediaPlayerVue: "./src/media-player.es6"
+    // mediaPlayerVue: "./src/media-player.es6",
+    mapHeaderVue: "./src/map-header.es6"
   },
   plugins: [
     new VueLoaderPlugin(),
@@ -21,6 +24,7 @@ module.exports = {
       filename: "style.css",
       chunkFilename: "styleChunk.css"
     })
+    // new BundleAnalyzerPlugin()
   ],
   module: {
     rules: [{
@@ -35,12 +39,18 @@ module.exports = {
       ]
     },
     {
-      test: /\.s[ac]ss$/i,
+      test: /\.s?[ac]ss$/i,
       use: [
         MiniCssExtractPlugin.loader,
         "css-loader",
         "sass-loader"
       ]
+    },
+    {
+      test: /\.(ttf|eot|svg|gif|png|jpg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      use: [{
+        loader: "file-loader"
+      }]
     }
     ]
   },
