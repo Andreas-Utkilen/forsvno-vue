@@ -28,7 +28,9 @@ export default {
       buttonText: "Se hvor vi opererer",
       data: data,
       icons: {
-        arrowRight: require("@/assets/images/arrow-right-white.svg"),
+        close: require("@/assets/images/close-small-white.svg"),
+        plus: require("@/assets/images/plus.svg"),
+        minus: require("@/assets/images/minus.svg"),
         markerRetina: require("@/assets/images/marker.png"),
         marker: require("@/assets/images/marker.png"),
         shadow: require("leaflet/dist/images/marker-shadow.png")

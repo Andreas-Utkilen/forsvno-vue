@@ -25,12 +25,50 @@
             v-show="fullscreen"
             class="map-header__exit-button"
           >
-            <img
-              :src="icons.arrowRight"
-              class="map-header__exit-button-img"
-              alt="Pil venstre"
-            >
+            <div>
+              <img
+                :src="icons.close"
+                class="map-header__exit-button-img"
+                alt="Lukk"
+              >
+            </div>
+            <span>
+              Lukk
+            </span>
           </button>
+          <div
+            v-show="fullscreen"
+            class="map-header__controls"
+          >
+          <button
+            @click="zoomIn"
+            class="map-header__zoom-in-button"
+          >
+            <div
+              class="map-header__zoom-in"
+            >
+              <img
+                  :src="icons.plus"
+                  class="map-header__zoom-button-img"
+                  alt="Zoom in"
+                >
+              </div>
+          </button>
+          <button
+            @click="zoomOut"
+            class="map-header__zoom-out-button"
+          >
+            <div
+              class="map-header__zoom-out"
+            >
+              <img
+                  :src="icons.minus"
+                  class="map-header__zoom-button-img"
+                  alt="Zoom out"
+                >
+            </div>
+          </button>
+          </div>
         </div>
       </div>
     </div>
@@ -273,6 +311,18 @@ export default {
       this.map._handlers.forEach((handler) => handler.disable());
       this.map.closePopup();
       this.map.setZoom(this.zoom);
+    },
+    /*
+     * Zoom control - in
+     */
+    zoomIn: function () {
+      this.map.zoomIn();
+    },
+    /*
+     * Zoom control - out
+     */
+    zoomOut: function () {
+      this.map.zoomOut();
     },
     /*
      * Resize handler. Exits fullscreen to prevent size issues.
