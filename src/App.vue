@@ -1,31 +1,31 @@
 <template>
   <main>
-    <div class="media-player__wrapper">
-      <MediaPlayer
-        :title="mediaplayer.title"
-        :image="mediaplayer.image"
-        :subtitle="mediaplayer.subtitle"
-        :ingress="mediaplayer.ingress"
-        :link="mediaplayer.link"
-        :mediaHeader="mediaplayer.mediaHeader"
-        :audio="mediaplayer.audio"
-        :linksHeader="mediaplayer.linksHeader"
-        :links="mediaplayer.links"
-        :icons="mediaplayer.icons"
+    <div class="spinview__wrapper">
+      <Spinview
+        :url="spinview.url"
+        :cover="spinview.cover"
+        :icons="spinview.icons"
       />
     </div>
   </main>
 </template>
 
 <script>
-import MediaPlayer from "./components/media-player/MediaPlayer.vue";
+import Spinview from "./components/spinview/Spinview.vue";
 
 export default {
   name: "App",
   components: {
-    MediaPlayer
+    Spinview
   },
   data: () => ({
+    spinview: {
+      url: "https://vr.spinviewglobal.com/norwegian_armed_forces_museum/",
+      cover: require("@/assets/images/forsvarsmuseet.jpg"),
+      icons: {
+        close: require("@/assets/images/close-white.svg")
+      }
+    },
     mediaplayer: {
       title: "Episode 1",
       image: "https://thumborcdn.acast.com/qvuqJgOCsWGpyd1FNBslwMbSpQQ=/500x500/https%3A%2F%2Fmediacdn.acast.com%2Fassets%2F875f5680-6bf6-46ad-8689-44aeb78b4b86%2F-jz2ldxt6-pod_f5_3.jpeg",

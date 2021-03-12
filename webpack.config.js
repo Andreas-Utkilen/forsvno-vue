@@ -10,7 +10,8 @@ module.exports = {
     diagramVue: "./src/diagram.es6",
     // storyVue: "./src/story.es6",
     promocardHorizontalVue: "./src/promocard-horizontal.es6",
-    mediaPlayerVue: "./src/media-player.es6"
+    mediaPlayerVue: "./src/media-player.es6",
+    spinviewVue: "./src/spinview.es6"
   },
   plugins: [
     new VueLoaderPlugin(),
