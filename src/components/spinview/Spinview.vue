@@ -11,6 +11,7 @@
           :width="width"
           height="100%"
           allow="fullscreen"
+          id="spinview"
         >
         </iframe>
         <img
@@ -56,6 +57,13 @@ export default {
   }),
   methods: {
     enterSpinview: function () {
+      const element = document.getElementById("spinview");
+      console.log(element);
+      if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
+      } else if (element.webkitRequestFullScreen) {
+        element.webkitRequestFullScreen();
+      }
       this.interactiveMode = true;
     },
     exitSpinview: function () {
