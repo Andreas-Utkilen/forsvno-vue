@@ -3,7 +3,7 @@
     class="spinview__wrapper"
   >
     <div
-      class="spinview"
+      :class="['spinview', interactiveMode ? 'spinview__interactive' : '']"
     >
         <iframe
           :src="url"
@@ -57,26 +57,6 @@ export default {
   }),
   methods: {
     enterSpinview: function () {
-      const width = window.innerWidth
-      || document.documentElement.clientWidth
-      || document.body.clientWidth;
-      const height = window.innerHeight
-      || document.documentElement.clientHeight
-      || document.body.clientHeight;
-      console.log(navigator.userAgent);
-      if (width < 500 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        const spinview = document.getElementById("spinview");
-        console.log(spinview);
-        if (spinview.requestFullscreen) {
-          spinview.requestFullscreen();
-        } else if (spinview.msRequestFullscreen) { /* IE11 */
-          spinview.msRequestFullscreen();
-        } else if (spinview.mozRequestFullScreen) {
-          spinview.mozRequestFullScreen();
-        } else if (spinview.webkitRequestFullScreen) {
-          spinview.webkitRequestFullScreen();
-        }
-      }
       this.interactiveMode = true;
     },
     exitSpinview: function () {

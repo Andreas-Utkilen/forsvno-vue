@@ -20,7 +20,7 @@ export default {
   },
   data: () => ({
     spinview: {
-      url: "https://vr.spinviewglobal.com/norwegian_armed_forces_museum/",
+      url: "//vr.spinviewglobal.com/norwegian_armed_forces_museum/",
       cover: require("@/assets/images/forsvarsmuseet.jpg"),
       icons: {
         close: require("@/assets/images/close-white.svg")
