@@ -11,7 +11,6 @@
           :width="width"
           height="100%"
           allow="fullscreen"
-          id="spinview"
           ref="spinview"
         >
         </iframe>
@@ -37,8 +36,14 @@
             @click="enterSpinview"
             class="spinview__button-wrapper sideways-hover  sideways-hover__reverse"
           >
-            <span class="spinview__icon sideways-hover__icon"></span>
-            <span class="spinview__button underline-draw__target">Se museum</span>
+            <span
+              class="spinview__icon sideways-hover__icon">
+            </span>
+            <span
+              class="spinview__button underline-draw__target"
+            >
+              Se museum
+            </span>
           </button>
         </div>
     </div>
@@ -49,9 +54,27 @@
 export default {
   name: "Spinview",
   props: {
-    url: String,
-    cover: String,
-    icons: {}
+    /**
+     * Iframe url
+     */
+    url: {
+      type: String,
+      default: ""
+    },
+    /**
+     * Cover image src url
+     */
+    cover: {
+      type: String,
+      default: ""
+    },
+    /**
+     * Icons
+     */
+    icons: {
+      type: [Object, Boolean],
+      default: false
+    }
   },
   data: () => ({
     interactiveMode: false
