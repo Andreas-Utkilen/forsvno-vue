@@ -12,6 +12,7 @@
           height="100%"
           allow="fullscreen"
           id="spinview"
+          ref="spinview"
         >
         </iframe>
         <img
@@ -55,17 +56,19 @@ export default {
   data: () => ({
     interactiveMode: false
   }),
+  mounted() {
+    this.$refs.spinview.style.height = window.innerHeight;
+    window.addEventListener("resize", this.resize);
+  },
   methods: {
     enterSpinview: function () {
       this.interactiveMode = true;
     },
     exitSpinview: function () {
       this.interactiveMode = false;
-    }
-  },
-  computed: {
-    width() {
-      return window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    },
+    resize: function () {
+      this.$refs.spinview.style.height = window.innerHeight;
     }
   }
 };
